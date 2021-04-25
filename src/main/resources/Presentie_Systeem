@@ -1,0 +1,46 @@
+CREATE DATABASE PRESENTIE_SYSTEEM;
+SHOW DATABASES;
+USE PRESENTIE_SYSTEEM;
+
+CREATE TABLE Studenten (
+                           Studenten_id INT PRIMARY KEY AUTO_INCREMENT,
+                           Voornaam CHAR(20),
+                           Achternaam CHAR(30),
+                           Email_adres CHAR(50)
+);
+
+SELECT * FROM PRESENTIE_SYSTEEM.Studenten;
+INSERT INTO Studenten (Studenten_id, Voornaam, Achternaam, Email_adres)
+VALUES ('100', 'Jazzy', 'Marie', 'j.marie@unasat.sr'),
+       ('101', 'Ahmad', 'Wirjomenggolo', 'a.wirjomenggolo@unasat.sr'),
+       ('102', 'Chaaliq', 'Amatkasanpawiro', 'c.amatkasanpawiro@unasat.sr'),
+       ('103', 'Anfarcio', 'Defares', 'a.defares@unasat.sr'),
+       ('200', null, null, null);
+
+CREATE TABLE Lokaal (
+                        Lokaal_id INT PRIMARY KEY AUTO_INCREMENT,
+                        Lokaal INT,
+                        Vak CHAR(25)
+);
+
+SELECT * FROM PRESENTIE_SYSTEEM.Lokaal;
+INSERT INTO Lokaal (Lokaal_id, Lokaal, Vak)
+VALUES ('1', '10', 'SE'),
+       ('2', '11', 'SNE'),
+       ('3', null, null);
+
+CREATE TABLE Presentie (
+                           Presentie_id INT PRIMARY KEY AUTO_INCREMENT,
+                           Inlog_Time DATETIME,
+                           Studenten_id INT NOT NULL,
+                           Lokaal_id INT NOT NULL,
+                           FOREIGN KEY (Studenten_id) REFERENCES Studenten (Studenten_id),
+                           FOREIGN KEY (Lokaal_id) REFERENCES Lokaal (Lokaal_id)
+);
+
+SELECT * FROM PRESENTIE_SYSTEEM.Presentie;
+INSERT INTO Presentie (Presentie_id, Inlog_Time, Studenten_id, Lokaal_id)
+VALUES ('1', '20-06-13 18.00.00', '101', '1'),
+       ('2', '20-06-13 18.00.00', '102', '2'),
+       ('3', '20-06-11 09.00.00', '103', '2'),
+       ('4', '20-06-11 09.00.00', '100', '1');
